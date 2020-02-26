@@ -1,8 +1,24 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Fragment } from "react";
 import { FaUserPlus } from "react-icons/fa";
+import { useState } from "react";
 
 const NewUser = () => {
+  const [newUser, setNewUser] = useState({
+    name: "Jon Doe",
+    email: "jon@test.com",
+    phone: "(99)9999-9999"
+  });
+  const dispatch = useDispatch();
+
+  function addUser(user) {
+    dispatch({
+      type: "ADD_USER",
+      user
+    });
+  }
+
   return (
     <Fragment>
       <div
@@ -39,7 +55,11 @@ const NewUser = () => {
               >
                 Cancelar
               </button>
-              <button type="button" className="btn btn-primary">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => addUser(newUser)}
+              >
                 Adicionar usuário
               </button>
             </div>
