@@ -1,9 +1,17 @@
 import React from "react";
 
+import UserList from "./components/UserList";
+
 function App() {
+  let users = [
+    { name: "Jon Doe", email: "jon@test.com", phone: "(99)9999-9999" },
+    { name: "Jon Doe", email: "jon@test.com", phone: "(99)9999-9999" },
+    { name: "Jon Doe", email: "jon@test.com", phone: "(99)9999-9999" }
+  ];
+
   return (
     <div className="App">
-      <h1>test</h1>
+      <UserList users={users} />
     </div>
   );
 }
