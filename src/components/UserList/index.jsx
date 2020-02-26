@@ -1,9 +1,9 @@
 import React from "react";
+import { FaUserEdit, FaUserTimes } from "react-icons/fa";
 
 const UserList = props => {
-  console.log(props.users);
   return (
-    <section>
+    <section className="container-fluid">
       <table className="table">
         <thead>
           <tr>
@@ -21,6 +21,22 @@ const UserList = props => {
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.phone}</td>
+                <td>
+                  <button
+                    type="button"
+                    className="btn btn-primary mr-3 mt-1 pl-3"
+                    title="Editar usuário"
+                  >
+                    <FaUserEdit size="20" />
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-danger mt-1 pl-3"
+                    title="Excluir usuário"
+                  >
+                    <FaUserTimes size="20" />
+                  </button>
+                </td>
               </tr>
             );
           })}

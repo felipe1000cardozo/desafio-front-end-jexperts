@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
 import UserList from "./components/UserList";
+import NewUser from "./components/NewUser";
+import { Provider } from "react-redux";
+
+import store from "./store";
 
 function App() {
   let users = [
@@ -10,9 +14,15 @@ function App() {
   ];
 
   return (
-    <div className="App">
-      <UserList users={users} />
-    </div>
+    <Provider store={store}>
+      <main className="container-fluid">
+        <nav className="navbar navbar-light bg-light">
+          <span className="navbar-brand mb-0 h1">Usuarios</span>
+          <NewUser />
+        </nav>
+        <UserList users={users} />
+      </main>
+    </Provider>
   );
 }
 
