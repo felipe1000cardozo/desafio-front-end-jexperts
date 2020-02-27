@@ -1,7 +1,11 @@
 import React from "react";
+import { useSelector } from "react-redux";
+
 import { FaUserEdit, FaUserTimes } from "react-icons/fa";
 
-const UserList = props => {
+const UserList = () => {
+  const users = useSelector(state => state.users);
+
   return (
     <section className="container-fluid">
       <table className="table">
@@ -14,7 +18,7 @@ const UserList = props => {
           </tr>
         </thead>
         <tbody>
-          {props.users.map((user, index) => {
+          {users.map((user, index) => {
             return (
               <tr key={index}>
                 <th scope="row">{index + 1}</th>
