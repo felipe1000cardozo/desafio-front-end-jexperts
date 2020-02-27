@@ -24,8 +24,8 @@ const NewUser = () => {
 
   return (
     <Fragment>
-      <nav className="navbar navbar-light bg-light">
-        <span className="navbar-brand mb-0 h1">Usuários</span>
+      <nav className="navbar navbar-light bg-primary ">
+        <span className="navbar-brand mb-0 h1 text-white">Usuários</span>
         <div
           className="modal fade"
           id="new-user-modal"
