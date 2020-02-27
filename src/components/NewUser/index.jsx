@@ -4,7 +4,6 @@ import { Fragment } from "react";
 import { FaUserPlus } from "react-icons/fa";
 import { useState } from "react";
 
-import validateEmail from "../../utils/validateEmail";
 import validateUser from "../../utils/validateUser";
 
 const NewUser = () => {
@@ -19,7 +18,7 @@ const NewUser = () => {
     });
   }
 
-  function handleAdd(user) {
+  function handleEditUser(user) {
     validateUser(user, users) && addUser(user);
   }
 
@@ -29,18 +28,16 @@ const NewUser = () => {
         <span className="navbar-brand mb-0 h1">Usuarios</span>
         <div
           className="modal fade"
-          id="exampleModalCenter"
+          id="new-user-modal"
           tabIndex="-1"
+          aria-labelledby="new-user-modal-title"
           role="dialog"
-          aria-labelledby="exampleModalCenterTitle"
           aria-hidden="true"
         >
           <div className="modal-dialog modal-dialog-centered" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLongTitle">
-                  Novo usuario
-                </h5>
+                <h5 className="modal-title">Novo usuario</h5>
                 <button
                   type="button"
                   className="close"
@@ -63,7 +60,7 @@ const NewUser = () => {
                       type="text"
                       className="form-control"
                       id="nome"
-                      placeholder="Example input placeholder"
+                      placeholder="Nome"
                     />
                   </div>
                   <div className="form-group">
@@ -76,7 +73,7 @@ const NewUser = () => {
                       type="email"
                       className="form-control"
                       id="email"
-                      placeholder="Another input placeholder"
+                      placeholder="Email"
                     />
                   </div>
                   <div className="form-group">
@@ -89,7 +86,7 @@ const NewUser = () => {
                       type="phone"
                       className="form-control"
                       id="telefone"
-                      placeholder="Another input placeholder"
+                      placeholder="Telefone"
                     />
                   </div>
                 </form>
@@ -106,7 +103,7 @@ const NewUser = () => {
                 <button
                   type="button"
                   className="btn btn-primary"
-                  onClick={() => handleAdd(newUser)}
+                  onClick={() => handleEditUser(newUser)}
                 >
                   Adicionar usuário
                 </button>
@@ -119,7 +116,7 @@ const NewUser = () => {
           className="btn btn-primary mr-3 mt-1 pl-3"
           title="Adicionar novo usuário"
           data-toggle="modal"
-          data-target="#exampleModalCenter"
+          data-target="#new-user-modal"
         >
           <FaUserPlus size="20" />
         </button>
