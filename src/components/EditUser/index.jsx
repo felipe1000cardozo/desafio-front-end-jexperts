@@ -19,7 +19,8 @@ const EditUser = ({ index }) => {
     });
   };
 
-  const handleEdit = user => {
+  const handleEdit = (e, user) => {
+    e.preventDefault();
     validateUser(user, users) && editUser(user);
   };
 
@@ -35,7 +36,7 @@ const EditUser = ({ index }) => {
         <div className="modal-dialog modal-dialog-centered" role="document">
           <div className="modal-content">
             <div className="modal-header">
-              <h4 className="modal-title">Editar: {editedUser.name}</h4>
+              <h4 className="modal-title">Editar: {users[index].name}</h4>
               <button
                 type="button"
                 className="close"
@@ -47,7 +48,7 @@ const EditUser = ({ index }) => {
             </div>
 
             <div className="modal-body">
-              <form>
+              <form onSubmit={e => handleEdit(e, editedUser)}>
                 <div className="form-group">
                   <label htmlFor="nome">Nome</label>
                   <input
@@ -59,6 +60,7 @@ const EditUser = ({ index }) => {
                     className="form-control"
                     id="nome"
                     placeholder="Nome"
+                    required
                   />
                 </div>
                 <div className="form-group">
@@ -72,6 +74,7 @@ const EditUser = ({ index }) => {
                     className="form-control"
                     id="email"
                     placeholder="Email"
+                    required
                   />
                 </div>
                 <div className="form-group">
@@ -85,26 +88,22 @@ const EditUser = ({ index }) => {
                     className="form-control"
                     id="telefone"
                     placeholder="Telefone"
+                    required
                   />
                 </div>
+                <div className="form-group d-flex justify-content-end border-top">
+                  <button
+                    type="button"
+                    className="btn btn-secondary mr-2 mt-3"
+                    data-dismiss="modal"
+                  >
+                    Cancelar
+                  </button>
+                  <button type="submit" className="btn btn-primary mt-3">
+                    Editar Usuário
+                  </button>
+                </div>
               </form>
-            </div>
-
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                Cancelar
-              </button>
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={() => handleEdit(editedUser)}
-              >
-                Editar Usuário
-              </button>
             </div>
           </div>
         </div>

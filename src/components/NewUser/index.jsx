@@ -18,7 +18,8 @@ const NewUser = () => {
     });
   }
 
-  function handleEditUser(user) {
+  function handleAddUser(e, user) {
+    e.preventDefault();
     validateUser(user, users) && addUser(user);
   }
 
@@ -49,7 +50,7 @@ const NewUser = () => {
               </div>
 
               <div className="modal-body">
-                <form>
+                <form onSubmit={e => handleAddUser(e, newUser)}>
                   <div className="form-group">
                     <label htmlFor="nome">Nome</label>
                     <input
@@ -61,6 +62,7 @@ const NewUser = () => {
                       className="form-control"
                       id="nome"
                       placeholder="Nome"
+                      required
                     />
                   </div>
                   <div className="form-group">
@@ -74,6 +76,7 @@ const NewUser = () => {
                       className="form-control"
                       id="email"
                       placeholder="Email"
+                      required
                     />
                   </div>
                   <div className="form-group">
@@ -87,33 +90,29 @@ const NewUser = () => {
                       className="form-control"
                       id="telefone"
                       placeholder="Telefone"
+                      required
                     />
                   </div>
+                  <div className="form-group d-flex justify-content-end border-top">
+                    <button
+                      type="button"
+                      className="btn btn-secondary mr-2 mt-3"
+                      data-dismiss="modal"
+                    >
+                      Cancelar
+                    </button>
+                    <button type="submit" className="btn btn-primary mt-3">
+                      Adicionar Usuário
+                    </button>
+                  </div>
                 </form>
-              </div>
-
-              <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  data-dismiss="modal"
-                >
-                  Cancelar
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={() => handleEditUser(newUser)}
-                >
-                  Adicionar usuário
-                </button>
               </div>
             </div>
           </div>
         </div>
         <button
           type="button"
-          className="btn btn-primary mr-3 mt-1 pl-3"
+          className="btn btn-primary mr-3 mt-1 pl-3 border border-white"
           title="Adicionar novo usuário"
           data-toggle="modal"
           data-target="#new-user-modal"
