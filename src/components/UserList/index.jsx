@@ -17,7 +17,7 @@ const UserList = () => {
   }
 
   return (
-    <section className="container-fluid">
+    <div className="table-responsive">
       <table className="table">
         <thead>
           <tr>
@@ -51,7 +51,7 @@ const UserList = () => {
           })}
         </tbody>
       </table>
-    </section>
+    </div>
   );
 };
 
