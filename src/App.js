@@ -1,27 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 
 import UserList from "./components/UserList";
 import NewUser from "./components/NewUser";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 
-import store from "./store";
+import { store, persistor } from "./store";
 
 function App() {
-  let users = [
-    { name: "Jon Doe", email: "jon@test.com", phone: "(99)9999-9999" },
-    { name: "Jon Doe", email: "jon@test.com", phone: "(99)9999-9999" },
-    { name: "Jon Doe", email: "jon@test.com", phone: "(99)9999-9999" }
-  ];
-
   return (
     <Provider store={store}>
-      <main className="container-fluid">
-        <nav className="navbar navbar-light bg-light">
-          <span className="navbar-brand mb-0 h1">Usuarios</span>
+      <PersistGate loading={null} persistor={persistor}>
+        <main className="container-fluid">
           <NewUser />
-        </nav>
-        <UserList users={users} />
-      </main>
+          <UserList />
+        </main>
+      </PersistGate>
     </Provider>
   );
 }
