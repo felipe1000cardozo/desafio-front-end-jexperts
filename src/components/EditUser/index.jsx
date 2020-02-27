@@ -58,7 +58,7 @@ const EditUser = ({ index }) => {
                     type="text"
                     className="form-control"
                     id="nome"
-                    placeholder="Example input placeholder"
+                    placeholder="Nome"
                   />
                 </div>
                 <div className="form-group">
@@ -71,7 +71,7 @@ const EditUser = ({ index }) => {
                     type="email"
                     className="form-control"
                     id="email"
-                    placeholder="Another input placeholder"
+                    placeholder="Email"
                   />
                 </div>
                 <div className="form-group">
@@ -84,7 +84,7 @@ const EditUser = ({ index }) => {
                     type="phone"
                     className="form-control"
                     id="telefone"
-                    placeholder="Another input placeholder"
+                    placeholder="Telefone"
                   />
                 </div>
               </form>
