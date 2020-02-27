@@ -1,10 +1,18 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import { FaUserEdit, FaUserTimes } from "react-icons/fa";
 
 const UserList = () => {
   const users = useSelector(state => state.users);
+  const dispatch = useDispatch();
+
+  function removeUser(index) {
+    dispatch({
+      type: "DELETE_USER",
+      index
+    });
+  }
 
   return (
     <section className="container-fluid">
@@ -37,6 +45,7 @@ const UserList = () => {
                     type="button"
                     className="btn btn-danger mt-1 pl-3"
                     title="Excluir usuário"
+                    onClick={() => removeUser(index)}
                   >
                     <FaUserTimes size="20" />
                   </button>
