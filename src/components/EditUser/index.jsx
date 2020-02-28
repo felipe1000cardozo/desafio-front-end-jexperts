@@ -36,7 +36,7 @@ const EditUser = ({ index }) => {
         <div className="modal-dialog modal-dialog-centered" role="document">
           <div className="modal-content">
             <div className="modal-header">
-              <h4 className="modal-title">Editar: {users[index].name}</h4>
+              <h4 className="modal-title">Editar:</h4>
               <button
                 type="button"
                 className="close"
@@ -52,7 +52,7 @@ const EditUser = ({ index }) => {
                 <div className="form-group">
                   <label htmlFor="nome">Nome</label>
                   <input
-                    val={editedUser.name}
+                    value={editedUser.name}
                     onChange={e =>
                       setEditedUser({ ...editedUser, name: e.target.value })
                     }
@@ -66,7 +66,7 @@ const EditUser = ({ index }) => {
                 <div className="form-group">
                   <label htmlFor="email">Email</label>
                   <input
-                    val={editedUser.email}
+                    value={editedUser.email}
                     onChange={e =>
                       setEditedUser({ ...editedUser, email: e.target.value })
                     }
@@ -80,7 +80,7 @@ const EditUser = ({ index }) => {
                 <div className="form-group">
                   <label htmlFor="telefone">Telefone</label>
                   <input
-                    val={editedUser.phone}
+                    value={editedUser.phone}
                     onChange={e =>
                       setEditedUser({ ...editedUser, phone: e.target.value })
                     }
@@ -88,7 +88,6 @@ const EditUser = ({ index }) => {
                     className="form-control"
                     id="telefone"
                     placeholder="Telefone"
-                    required
                   />
                 </div>
                 <div className="form-group d-flex justify-content-end border-top">
