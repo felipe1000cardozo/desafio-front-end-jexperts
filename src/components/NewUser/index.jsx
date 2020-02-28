@@ -1,27 +1,39 @@
-import React from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Fragment } from "react";
 import { FaUserPlus } from "react-icons/fa";
-import { useState } from "react";
 
 import validateUser from "../../utils/validateUser";
+import Alert from "../Alert";
 
 const NewUser = () => {
   const dispatch = useDispatch();
   const users = useSelector(state => state.users);
   const [newUser, setNewUser] = useState({});
+  const [canClose, setCanClose] = useState(false);
 
-  function addUser(user) {
+  useEffect(() => {
+    validateUser(newUser, users) ? setCanClose(true) : setCanClose(false);
+  }, [newUser, users]);
+
+  const addUser = user => {
     dispatch({
       type: "ADD_USER",
       user
     });
-  }
+  };
 
-  function handleAddUser(e, user) {
+  const handleAddUser = (e, user) => {
     e.preventDefault();
-    validateUser(user, users) && addUser(user);
-  }
+    if (validateUser(user, users)) {
+      addUser(user);
+      cleanNewUser();
+    } else {
+    }
+  };
+
+  const cleanNewUser = () => {
+    setNewUser({ name: "", email: "", phone: "" });
+  };
 
   return (
     <Fragment>
@@ -44,17 +56,20 @@ const NewUser = () => {
                   className="close"
                   data-dismiss="modal"
                   aria-label="Close"
+                  onClick={cleanNewUser}
                 >
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-
+              {!canClose && <Alert type="incomplete" />}
+              {!canClose && <Alert type="incorrectEmail" />}
               <div className="modal-body">
-                <form onSubmit={e => handleAddUser(e, newUser)}>
+                <form>
+                  {/* onSubmit={e => handleAddUser(e, newUser)} */}
                   <div className="form-group">
                     <label htmlFor="nome">Nome</label>
                     <input
-                      val={newUser.name}
+                      value={newUser.name}
                       onChange={e =>
                         setNewUser({ ...newUser, name: e.target.value })
                       }
@@ -68,7 +83,7 @@ const NewUser = () => {
                   <div className="form-group">
                     <label htmlFor="email">Email</label>
                     <input
-                      val={newUser.email}
+                      value={newUser.email}
                       onChange={e =>
                         setNewUser({ ...newUser, email: e.target.value })
                       }
@@ -82,7 +97,7 @@ const NewUser = () => {
                   <div className="form-group">
                     <label htmlFor="telefone">Telefone</label>
                     <input
-                      val={newUser.phone}
+                      value={newUser.phone}
                       onChange={e =>
                         setNewUser({ ...newUser, phone: e.target.value })
                       }
@@ -90,7 +105,6 @@ const NewUser = () => {
                       className="form-control"
                       id="telefone"
                       placeholder="Telefone"
-                      required
                     />
                   </div>
                   <div className="form-group d-flex justify-content-end border-top">
@@ -98,10 +112,16 @@ const NewUser = () => {
                       type="button"
                       className="btn btn-secondary mr-2 mt-3"
                       data-dismiss="modal"
+                      onClick={cleanNewUser}
                     >
                       Cancelar
                     </button>
-                    <button type="submit" className="btn btn-primary mt-3">
+                    <button
+                      type="submit"
+                      onClick={e => handleAddUser(e, newUser)}
+                      className="btn btn-primary mt-3"
+                      data-dismiss={canClose && "modal"}
+                    >
                       Adicionar Usuário
                     </button>
                   </div>
