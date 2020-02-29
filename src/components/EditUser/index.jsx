@@ -1,15 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Fragment } from "react";
 import { FaUserEdit } from "react-icons/fa";
 import { useState } from "react";
 
-import validateUser from "../../utils/validateUser";
+import Alert from "../Alert";
+import emptyUserFields from "../../utils/emptyUserFields";
+import validateEmail from "../../utils/validateEmail";
 
 const EditUser = ({ index }) => {
   const dispatch = useDispatch();
   const users = useSelector(state => state.users);
   const [editedUser, setEditedUser] = useState(users[index]);
+  const [canClose, setCanClose] = useState(false);
+
+  const [alertEmpty, setAlertEmpty] = useState(false);
+  const [alertInvalidEmail, setAlertInvalidEmail] = useState(false);
+
+  useEffect(() => {
+    !emptyUserFields(editedUser) && validateEmail(editedUser.email)
+      ? setCanClose(true)
+      : setCanClose(false);
+    setAlertEmpty(false);
+    setAlertInvalidEmail(false);
+  }, [editedUser, users]);
 
   const editUser = user => {
     dispatch({
@@ -21,7 +35,12 @@ const EditUser = ({ index }) => {
 
   const handleEdit = (e, user) => {
     e.preventDefault();
-    validateUser(user, users) && editUser(user);
+    if (!emptyUserFields(user) && validateEmail(user.email)) {
+      editUser(user);
+    } else {
+      setAlertEmpty(emptyUserFields(user));
+      setAlertInvalidEmail(!validateEmail(user.email));
+    }
   };
 
   return (
@@ -36,7 +55,7 @@ const EditUser = ({ index }) => {
         <div className="modal-dialog modal-dialog-centered" role="document">
           <div className="modal-content">
             <div className="modal-header">
-              <h4 className="modal-title">Editar:</h4>
+              <h4 className="modal-title">Editar usuário</h4>
               <button
                 type="button"
                 className="close"
@@ -46,9 +65,10 @@ const EditUser = ({ index }) => {
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-
+            {alertEmpty && <Alert type="incomplete" />}
+            {alertInvalidEmail && <Alert type="invalidEmail" />}
             <div className="modal-body">
-              <form onSubmit={e => handleEdit(e, editedUser)}>
+              <form>
                 <div className="form-group">
                   <label htmlFor="nome">Nome</label>
                   <input
@@ -98,7 +118,12 @@ const EditUser = ({ index }) => {
                   >
                     Cancelar
                   </button>
-                  <button type="submit" className="btn btn-primary mt-3">
+                  <button
+                    type="submit"
+                    className="btn btn-primary mt-3"
+                    data-dismiss={canClose && "modal"}
+                    onClick={e => handleEdit(e, editedUser)}
+                  >
                     Editar Usuário
                   </button>
                 </div>

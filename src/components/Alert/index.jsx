@@ -9,11 +9,16 @@ const Alert = ({ type }) => {
           campos.
         </div>
       );
-    case "incorrectEmail":
+    case "alreadyExistEmail":
       return (
         <div className="alert alert-danger mb-0" role="alert">
-          <strong>Email incoreto ou repetido</strong> Por favor digite um email
-          valido.
+          <strong>Email já cadastrado</strong> Por favor digite um email válido.
+        </div>
+      );
+    case "invalidEmail":
+      return (
+        <div className="alert alert-danger mb-0" role="alert">
+          <strong>Email inválido</strong> Por favor digite um email válido.
         </div>
       );
     default:

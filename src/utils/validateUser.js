@@ -1,10 +1,11 @@
 import validateEmail from "./validateEmail";
 import emptyUserFields from "./emptyUserFields";
+import emailAlreadyExist from "./emailAlreadyExist";
 
 export default function validateUser(user, users) {
   return (
-    emptyUserFields(user) &&
+    !emptyUserFields(user) &&
     validateEmail(user.email) &&
-    users.every(element => element.email !== user.email)
+    emailAlreadyExist(user, users)
   );
 }

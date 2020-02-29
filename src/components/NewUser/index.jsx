@@ -3,16 +3,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { FaUserPlus } from "react-icons/fa";
 
 import validateUser from "../../utils/validateUser";
+import validateEmail from "../../utils/validateEmail";
+
+import emptyUserFields from "../../utils/emptyUserFields";
+import emailAlreadyExist from "../../utils/emailAlreadyExist";
 import Alert from "../Alert";
 
 const NewUser = () => {
   const dispatch = useDispatch();
   const users = useSelector(state => state.users);
-  const [newUser, setNewUser] = useState({});
+  const [newUser, setNewUser] = useState({ name: "", email: "", phone: "" });
   const [canClose, setCanClose] = useState(false);
+
+  const [alertEmpty, setAlertEmpty] = useState(false);
+  const [alertExistingEmail, setAlertExistingEmail] = useState(false);
+  const [alertInvalidEmail, setAlertInvalidEmail] = useState(false);
 
   useEffect(() => {
     validateUser(newUser, users) ? setCanClose(true) : setCanClose(false);
+    setAlertEmpty(false);
+    setAlertExistingEmail(false);
+    setAlertInvalidEmail(false);
   }, [newUser, users]);
 
   const addUser = user => {
@@ -28,6 +39,9 @@ const NewUser = () => {
       addUser(user);
       cleanNewUser();
     } else {
+      setAlertEmpty(emptyUserFields(user));
+      setAlertExistingEmail(!emailAlreadyExist(user, users));
+      setAlertInvalidEmail(!validateEmail(user.email));
     }
   };
 
@@ -61,13 +75,14 @@ const NewUser = () => {
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              {!canClose && <Alert type="incomplete" />}
-              {!canClose && <Alert type="incorrectEmail" />}
+              {alertEmpty && <Alert type="incomplete" />}
+              {alertExistingEmail && <Alert type="alreadyExistEmail" />}
+              {alertInvalidEmail && <Alert type="invalidEmail" />}
               <div className="modal-body">
                 <form>
                   {/* onSubmit={e => handleAddUser(e, newUser)} */}
                   <div className="form-group">
-                    <label htmlFor="nome">Nome</label>
+                    <label htmlFor="nome">Nome *</label>
                     <input
                       value={newUser.name}
                       onChange={e =>
@@ -81,7 +96,7 @@ const NewUser = () => {
                     />
                   </div>
                   <div className="form-group">
-                    <label htmlFor="email">Email</label>
+                    <label htmlFor="email">Email *</label>
                     <input
                       value={newUser.email}
                       onChange={e =>
