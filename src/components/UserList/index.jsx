@@ -3,17 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { FaUserTimes } from "react-icons/fa";
 import EditUser from "../EditUser";
+import { removeUser } from "../../store/modules/users/actions";
 
 const UserList = () => {
   const users = useSelector(state => state.users);
   const dispatch = useDispatch();
 
-  function deleteUser(index) {
+  function handleDeleteUser(index) {
     window.confirm("Tem certeza que deseja excluir este usuário?") &&
-      dispatch({
-        type: "DELETE_USER",
-        index
-      });
+      dispatch(removeUser(index));
   }
 
   return (
@@ -41,7 +39,7 @@ const UserList = () => {
                     type="button"
                     className="btn btn-danger mt-1 pl-3"
                     title="Excluir usuário"
-                    onClick={() => deleteUser(index)}
+                    onClick={() => handleDeleteUser(index)}
                   >
                     <FaUserTimes size="20" />
                   </button>

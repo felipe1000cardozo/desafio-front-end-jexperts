@@ -6,7 +6,7 @@ export default function users(state = [], action) {
       state[action.index] = action.user;
       console.log(action);
       return [...state];
-    case "DELETE_USER":
+    case "REMOVE_USER":
       return state.filter((user, index) => index !== action.index);
     default:
       return state;

@@ -5,6 +5,7 @@ import { FaUserEdit } from "react-icons/fa";
 import { useState } from "react";
 
 import Alert from "../Alert";
+import { editUser } from "../../store/modules/users/actions";
 import emptyUserFields from "../../utils/emptyUserFields";
 import validateEmail from "../../utils/validateEmail";
 
@@ -25,18 +26,10 @@ const EditUser = ({ index }) => {
     setAlertInvalidEmail(false);
   }, [editedUser, users]);
 
-  const editUser = user => {
-    dispatch({
-      type: "EDIT_USER",
-      index,
-      user
-    });
-  };
-
   const handleEdit = (e, user) => {
     e.preventDefault();
     if (!emptyUserFields(user) && validateEmail(user.email)) {
-      editUser(user);
+      dispatch(editUser(user, index));
     } else {
       setAlertEmpty(emptyUserFields(user));
       setAlertInvalidEmail(!validateEmail(user.email));

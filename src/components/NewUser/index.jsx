@@ -2,12 +2,12 @@ import React, { useEffect, useState, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaUserPlus } from "react-icons/fa";
 
+import Alert from "../Alert";
+import { addUser } from "../../store/modules/users/actions";
 import validateUser from "../../utils/validateUser";
 import validateEmail from "../../utils/validateEmail";
-
 import emptyUserFields from "../../utils/emptyUserFields";
 import emailAlreadyExist from "../../utils/emailAlreadyExist";
-import Alert from "../Alert";
 
 const NewUser = () => {
   const dispatch = useDispatch();
@@ -26,17 +26,10 @@ const NewUser = () => {
     setAlertInvalidEmail(false);
   }, [newUser, users]);
 
-  const addUser = user => {
-    dispatch({
-      type: "ADD_USER",
-      user
-    });
-  };
-
   const handleAddUser = (e, user) => {
     e.preventDefault();
     if (validateUser(user, users)) {
-      addUser(user);
+      dispatch(addUser(user));
       cleanNewUser();
     } else {
       setAlertEmpty(emptyUserFields(user));
