@@ -15,7 +15,7 @@
 ## Sobre o Projeto
 
 Este projeto é o resultado do desafio prático proposto pela JExperts.
-"O desafio consiste na criação de um aplicação web simples para cadastro de usuários (CRUD) com autenticação."
+"O desafio consiste na criação de um aplicação web simples para cadastro de usuários (CRUD)."
 
 ### Feito Com
 
