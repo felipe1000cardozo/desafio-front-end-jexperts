@@ -28,6 +28,7 @@ Abaixo segue o que foi utilizado na criação deste projeto:
 -  [Redux Persist](https://github.com/rt2zz/redux-persist) - Utilizado para persistência de estados no armazenamento local.
  -  [React Icons](https://react-icons.netlify.com/#/) - Utilizado para adicionar bibliotecas populares de ícones ao projeto.
  -  [Styled Components](https://styled-components.com/) - Biblioteca para React e React Native que permite utilizar estilos ao nível de componente na aplicação.
+-  [Bootstrap 4](https://getbootstrap.com/) - O Bootstrap é uma ferramenta gratuita para desenvolvimento HTML, CSS e JS.
 
 <!-- GETTING STARTED -->
 
